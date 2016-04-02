@@ -11,11 +11,12 @@ public class Node {
 //	private NodeType type = NodeType.Wall;
 //	private NodePassage passage = NodePassage.None;
 //	public boolean visited =  false;
-//	public boolean goal;
+	public boolean goal;
 	private int row = -1;
 	private int col = -1;
 	private int distance;
 	private char feature;
+
 	
 	public Node(int row, int col) {
 		this.row = row;
@@ -104,13 +105,16 @@ public class Node {
 //		this.visited = visited;
 //	}
 //
-//	public boolean isGoalNode() {
-//		return goal;
-//	}
-//
-//	public void setGoalNode(boolean goal) {
-//		this.goal = goal;
-//	}
+	public boolean isGoalNode() {
+		return goal;
+	}
+
+	public void setGoalNode(boolean goal) {
+		this.goal = goal;
+	}
+	
+
+	
 //	
 //	public int getHeuristic(Node goal){
 //		double x1 = this.col;

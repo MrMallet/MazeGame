@@ -4,11 +4,13 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 public class GameRunner implements KeyListener{
-	private static final int MAZE_DIMENSION = 100;
+	private static final int MAZE_DIMENSION = 40;
 	private Node[][] model;
 	private GameView view;
 	private int currentRow;
 	private int currentCol;
+	private int goalRow;
+	private int goalCol;
 	
 	public GameRunner() throws Exception{
 		Maze m = new Maze(MAZE_DIMENSION, MAZE_DIMENSION);
@@ -16,6 +18,7 @@ public class GameRunner implements KeyListener{
     	view = new GameView(model);
     	
     	placePlayer();
+    	placeGoalNode();
     	
     	Dimension d = new Dimension(GameView.DEFAULT_VIEW_SIZE, GameView.DEFAULT_VIEW_SIZE);
     	view.setPreferredSize(d);
@@ -33,10 +36,18 @@ public class GameRunner implements KeyListener{
         f.setVisible(true);
 	}
 	
+	private void placeGoalNode(){
+		goalRow = (int) (MAZE_DIMENSION * Math.random());
+		goalCol = (int) (MAZE_DIMENSION * Math.random()); 
+    	model[goalRow][goalCol].setGoalNode(true);
+    	model[goalRow][goalCol].setFeature('G');
+    	updateView();
+	}
+	
 	private void placePlayer(){   	
     	currentRow = (int) (MAZE_DIMENSION * Math.random());
     	currentCol = (int) (MAZE_DIMENSION * Math.random());
-    	model[currentRow][currentCol].setFeature('E');
+    	model[currentRow][currentCol].setFeature('P');
     	updateView(); 		
 	}
 	
@@ -72,7 +83,7 @@ public class GameRunner implements KeyListener{
 	private boolean isValidMove(int r, int c){
 		if (r <= model.length - 1 && c <= model[r].length - 1 && model[r][c].getFeature() == ' '){
 			model[currentRow][currentCol].setFeature(' '); 
-			model[r][c].setFeature('E');
+			model[r][c].setFeature('P');
 			return true;}
 		else if (model[r][c].getFeature()=='B'){
 			//model[currentRow][currentCol].setFeature(' ');

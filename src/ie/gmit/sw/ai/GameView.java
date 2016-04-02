@@ -8,12 +8,12 @@ import javax.swing.*;
 public class GameView extends JPanel implements ActionListener{
 	private static final long serialVersionUID = 1L;
 	public static final int DEFAULT_VIEW_SIZE = 800;	
-	private static final int IMAGE_COUNT = 8;
+	private static final int IMAGE_COUNT = 9;
 	private int cellspan = 5;	
 	private int cellpadding = 2;
 	private Node[][] maze;
 	private BufferedImage[] images;
-	private int enemy_state = 5;
+	private int player_state = 5;
 	private Timer timer;
 	private int currentRow;
 	private int currentCol;
@@ -52,13 +52,13 @@ public class GameView extends JPanel implements ActionListener{
 	public void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D)g; 
-        
+        Graphics2D e1 = (Graphics2D)g;
         cellspan = zoomOut ? maze.length : 5;         
         final int size = DEFAULT_VIEW_SIZE/cellspan;
         g2.drawRect(0, 0, GameView.DEFAULT_VIEW_SIZE, GameView.DEFAULT_VIEW_SIZE);
-        //g2.drawRect(0, 0, GameView.DEFAULT_VIEW_SIZE, GameView.DEFAULT_VIEW_SIZE);
         
-        
+        e1.drawRect(0, 0, GameView.DEFAULT_VIEW_SIZE, GameView.DEFAULT_VIEW_SIZE);
+              
         for(int row = 0; row < cellspan; row++) {
         	for (int col = 0; col < cellspan; col++){  
         		int x1 = col * size;
@@ -68,11 +68,16 @@ public class GameView extends JPanel implements ActionListener{
        		
         		if (zoomOut){
         			ch = maze[row][col].getFeature();
+        			
+        			if(maze[row][col].isGoalNode()){
+        				g2.setColor(Color.RED);
+        				g2.fillRect(x1,y1,size,size);
+        			}
         			if (row == currentRow && col == currentCol){
         				g2.setColor(Color.YELLOW);
         				g2.fillRect(x1, y1, size, size);
         				continue;
-        			}
+        			} 
         		}else{
         			ch = maze[currentRow - cellpadding + row][currentCol - cellpadding + col].getFeature();
         		}
@@ -88,16 +93,19 @@ public class GameView extends JPanel implements ActionListener{
         			imageIndex = 3;
         		}else if (ch == 'H'){
         			imageIndex = 4;
+        		}else if (ch == 'P'){
+        			imageIndex = player_state;
         		}else if (ch == 'E'){
-        			imageIndex = enemy_state;
-        		}else if (ch == 'A'){
         			imageIndex = 7;
+        		}else if (ch == 'G'){
+        			imageIndex = 8;
         		}else{
         			imageIndex = -1;
         		}
         		
         		if (imageIndex >= 0){
         			g2.drawImage(images[imageIndex], x1, y1, null);
+        			//e1.drawImage(images[imageIndex], x1, y1, null);
         		}else{
         			g2.setColor(Color.LIGHT_GRAY);
         			g2.fillRect(x1, y1, size, size);
@@ -111,10 +119,10 @@ public class GameView extends JPanel implements ActionListener{
 	}
 
 	public void actionPerformed(ActionEvent e) {	
-		if (enemy_state < 0 || enemy_state == 5){
-			enemy_state = 6;
+		if (player_state < 0 || player_state == 5){
+			player_state = 6;
 		}else{
-			enemy_state = 5;
+			player_state = 5;
 		}
 		this.repaint();
 	}
@@ -126,8 +134,9 @@ public class GameView extends JPanel implements ActionListener{
 		images[2] = ImageIO.read(new java.io.File("resources/help.png"));
 		images[3] = ImageIO.read(new java.io.File("resources/bomb.png"));
 		images[4] = ImageIO.read(new java.io.File("resources/h_bomb.png"));
-		images[5] = ImageIO.read(new java.io.File("resources/spider_down.png"));
-		images[6] = ImageIO.read(new java.io.File("resources/spider_up.png"));
-		images[7] = ImageIO.read(new java.io.File("resources/pan.png"));
+		images[5] = ImageIO.read(new java.io.File("resources/martinRight.png"));
+		images[6] = ImageIO.read(new java.io.File("resources/martinLeft.png"));
+		images[7] = ImageIO.read(new java.io.File("resources/gargoyle.png"));
+		images[8] = ImageIO.read(new java.io.File("resources/dziewczyna.png"));
 	}
 }

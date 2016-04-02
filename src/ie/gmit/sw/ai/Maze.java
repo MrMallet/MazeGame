@@ -6,6 +6,10 @@ public class Maze {
 	//use when writing the enemy algorithm
 	
 	private Node[][] maze; 
+	private int goalRow;
+	private int goalCol;
+	
+	
 	public Maze(int rows, int cols){
 		maze = new Node[rows][cols];
 		init();
@@ -16,7 +20,7 @@ public class Maze {
 		addFeature('?', 'X', featureNumber);
 		addFeature('B', 'X', featureNumber);
 		addFeature('H', 'X', featureNumber);
-		addFeature('A', 'X', featureNumber);
+		addFeature('E', 'X', featureNumber);
 		
 	}
 	
@@ -62,6 +66,17 @@ public class Maze {
 		return this.maze;
 	}
 	
+	public void setGoalPos(int row, int col){
+		this.goalRow = row;
+		this.goalCol = col;
+	}
+	public int getGoalRow(){
+		return goalRow;
+	}
+	public int getGoalCol(){
+		return goalCol;
+	}
+	
 	public String toString(){
 		StringBuffer sb = new StringBuffer();
 		for (int row = 0; row < maze.length; row++){
@@ -71,6 +86,7 @@ public class Maze {
 			}
 			sb.append("\n");
 		}
+		//System.out.println(sb);
 		return sb.toString();
 	}
 }
