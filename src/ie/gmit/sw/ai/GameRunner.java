@@ -19,6 +19,21 @@ public class GameRunner implements KeyListener{
     	
     	placePlayer();
     	placeGoalNode();
+    	for(int i=0;i<=20;i++){
+    		placeEnemies();
+    	}
+    	
+    	/*
+    	 * create player objects
+    	 * create enemy objects
+    	 *     	Enemy e1 = new Enemy();
+    	Enemy e2 = new Enemy();
+    	Enemy e3 = new Enemy();
+    	Enemy e4 = new Enemy();
+    	Enemy e5 = new Enemy();
+    	 */
+
+
     	
     	Dimension d = new Dimension(GameView.DEFAULT_VIEW_SIZE, GameView.DEFAULT_VIEW_SIZE);
     	view.setPreferredSize(d);
@@ -36,12 +51,19 @@ public class GameRunner implements KeyListener{
         f.setVisible(true);
 	}
 	
+	private void placeEnemies(){
+		currentRow = (int) (MAZE_DIMENSION * Math.random());
+    	currentCol = (int) (MAZE_DIMENSION * Math.random());
+    	model[currentRow][currentCol].setFeature('E');
+    	
+	}
+	
 	private void placeGoalNode(){
 		goalRow = (int) (MAZE_DIMENSION * Math.random());
 		goalCol = (int) (MAZE_DIMENSION * Math.random()); 
     	model[goalRow][goalCol].setGoalNode(true);
     	model[goalRow][goalCol].setFeature('G');
-    	updateView();
+    	//updateView();
 	}
 	
 	private void placePlayer(){   	
@@ -100,6 +122,11 @@ public class GameRunner implements KeyListener{
 		}else if (model[r][c].getFeature()=='W'){
 			//model[currentRow][currentCol].setFeature(' ');
 			model[r][c].setFeature('X');
+			return false; //Can't move but player interacts with something and changes the state of node
+		}else if (model[r][c].getFeature()=='G'){
+			//model[currentRow][currentCol].setFeature(' ');
+			model[r][c].setFeature('G');
+			
 			return false; //Can't move but player interacts with something and changes the state of node
 		}
 		else {

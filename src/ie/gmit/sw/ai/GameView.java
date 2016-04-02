@@ -68,10 +68,15 @@ public class GameView extends JPanel implements ActionListener{
        		
         		if (zoomOut){
         			ch = maze[row][col].getFeature();
+        			if(maze[row][col].getFeature()== 'E'){
+        				g2.setColor(Color.BLACK);
+        				g2.fillRect(x1, y1, size, size);
+        			}
         			
         			if(maze[row][col].isGoalNode()){
         				g2.setColor(Color.RED);
         				g2.fillRect(x1,y1,size,size);
+        				continue;
         			}
         			if (row == currentRow && col == currentCol){
         				g2.setColor(Color.YELLOW);
