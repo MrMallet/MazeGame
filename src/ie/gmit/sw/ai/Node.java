@@ -7,16 +7,15 @@ public class Node {
 	public enum NodeType{Wall, Passage};
 	public enum NodePassage{North, South, East, West, None};
 	private Node parent;
-	private Color color = Color.BLACK;
+	private Color color = Color.YELLOW;
 	private NodeType type = NodeType.Wall;
 	private NodePassage passage = NodePassage.None;
-	public boolean visited =  false;
+	public boolean visited = false;
 	public boolean goal;
 	private int row = -1;
 	private int col = -1;
 	private int distance;
 	private char feature;
-
 	
 	public Node(int row, int col) {
 		this.row = row;
@@ -26,7 +25,7 @@ public class Node {
 	public int getRow() {
 		return row;
 	}
-
+	
 	public int getCol() {
 		return col;
 	}
@@ -101,7 +100,7 @@ public class Node {
 	}
 
 	public void setVisited(boolean visited) {
-		this.color = Color.BLUE;
+		//this.color = Color.BLUE;
 		this.visited = visited;
 	}
 

@@ -3,6 +3,8 @@ package ie.gmit.sw.ai;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
+import ie.gmit.sw.ai.traversers.*;
+
 public class GameRunner implements KeyListener{
 	private static final int MAZE_DIMENSION = 40;
 	private Node[][] model;
@@ -23,17 +25,27 @@ public class GameRunner implements KeyListener{
     		placeEnemies();
     	}
     	
+    	
+    	
     	/*
+    	 * list:
+    	 * called the visited and change color of the node in both views
+    	 * 
+    	 * 
     	 * create player objects
     	 * create enemy objects
-    	 *     	Enemy e1 = new Enemy();
-    	Enemy e2 = new Enemy();
-    	Enemy e3 = new Enemy();
-    	Enemy e4 = new Enemy();
-    	Enemy e5 = new Enemy();
+    	 * Enemy e1 = new Enemy();
+    	 * Enemy e2 = new Enemy();
+    	 * Enemy e3 = new Enemy();
+    	 * Enemy e4 = new Enemy();
+    	 * Enemy e5 = new Enemy();    
+    	 *
+    	 *
+    	 * threading: use swing utilities
+    	 * asynchronous..
+    	 * 
     	 */
-
-
+    	
     	
     	Dimension d = new Dimension(GameView.DEFAULT_VIEW_SIZE, GameView.DEFAULT_VIEW_SIZE);
     	view.setPreferredSize(d);
@@ -52,10 +64,10 @@ public class GameRunner implements KeyListener{
 	}
 	
 	private void placeEnemies(){
-		currentRow = (int) (MAZE_DIMENSION * Math.random());
-    	currentCol = (int) (MAZE_DIMENSION * Math.random());
-    	model[currentRow][currentCol].setFeature('E');
-    	
+		int enemyRow = (int) (MAZE_DIMENSION * Math.random());
+    	int enemyCol = (int) (MAZE_DIMENSION * Math.random());
+    	model[enemyRow][enemyCol].setFeature('E');
+    	//updateView();
 	}
 	
 	private void placeGoalNode(){
@@ -106,6 +118,15 @@ public class GameRunner implements KeyListener{
 		if (r <= model.length - 1 && c <= model[r].length - 1 && model[r][c].getFeature() == ' '){
 			model[currentRow][currentCol].setFeature(' '); 
 			model[r][c].setFeature('P');
+			model[currentRow][currentCol].setVisited(true);
+			System.out.println("current row: " + currentRow + " current col: "+currentCol+ " isVisited() returns: " + model[currentRow][currentCol].isVisited());
+			for(int i =0; i<40;i++){
+				for(int j =0; j<40; j++){
+					System.out.print(model[i][j].getFeature());
+					System.out.print(model[i][j].isVisited());
+				}
+				System.out.println();
+			}
 			return true;}
 		else if (model[r][c].getFeature()=='B'){
 			//model[currentRow][currentCol].setFeature(' ');
@@ -136,5 +157,8 @@ public class GameRunner implements KeyListener{
 	
 	public static void main(String[] args) throws Exception{
 		new GameRunner();
+		
+//		Traversator t = new IDDFSTraversator();
+//    	t.traverse(model, model[0][0], view);
 	}
 }

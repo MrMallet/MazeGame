@@ -52,12 +52,9 @@ public class GameView extends JPanel implements ActionListener{
 	public void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D)g; 
-        Graphics2D e1 = (Graphics2D)g;
         cellspan = zoomOut ? maze.length : 5;         
         final int size = DEFAULT_VIEW_SIZE/cellspan;
         g2.drawRect(0, 0, GameView.DEFAULT_VIEW_SIZE, GameView.DEFAULT_VIEW_SIZE);
-        
-        e1.drawRect(0, 0, GameView.DEFAULT_VIEW_SIZE, GameView.DEFAULT_VIEW_SIZE);
               
         for(int row = 0; row < cellspan; row++) {
         	for (int col = 0; col < cellspan; col++){  
@@ -65,11 +62,19 @@ public class GameView extends JPanel implements ActionListener{
         		int y1 = row * size;
         		
         		char ch = 'X';
-       		
+        		
+        		
+        		
         		if (zoomOut){
         			ch = maze[row][col].getFeature();
+        			
         			if(maze[row][col].getFeature()== 'E'){
         				g2.setColor(Color.BLACK);
+        				g2.fillRect(x1, y1, size, size);
+        			}
+
+        			if(maze[row][col].getFeature()== 'H'){
+        				g2.setColor(Color.ORANGE);
         				g2.fillRect(x1, y1, size, size);
         			}
         			
@@ -82,7 +87,13 @@ public class GameView extends JPanel implements ActionListener{
         				g2.setColor(Color.YELLOW);
         				g2.fillRect(x1, y1, size, size);
         				continue;
-        			} 
+        			}
+        			
+        			if(maze[row][col].isVisited()){
+        				//System.out.println("should be painting blue squares");
+        				g2.setColor(Color.BLUE);
+        				g2.fillRect(x1, y1, size, size);
+        			}
         		}else{
         			ch = maze[currentRow - cellpadding + row][currentCol - cellpadding + col].getFeature();
         		}
@@ -110,7 +121,6 @@ public class GameView extends JPanel implements ActionListener{
         		
         		if (imageIndex >= 0){
         			g2.drawImage(images[imageIndex], x1, y1, null);
-        			//e1.drawImage(images[imageIndex], x1, y1, null);
         		}else{
         			g2.setColor(Color.LIGHT_GRAY);
         			g2.fillRect(x1, y1, size, size);

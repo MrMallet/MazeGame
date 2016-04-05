@@ -6,8 +6,8 @@ public class Maze {
 	//use when writing the enemy algorithm
 	
 	private Node[][] maze; 
-	private int goalRow;
-	private int goalCol;
+//	private int goalRow;
+//	private int goalCol;
 	
 	
 	public Maze(int rows, int cols){
@@ -66,16 +66,16 @@ public class Maze {
 		return this.maze;
 	}
 	
-	public void setGoalPos(int row, int col){
-		this.goalRow = row;
-		this.goalCol = col;
-	}
-	public int getGoalRow(){
-		return goalRow;
-	}
-	public int getGoalCol(){
-		return goalCol;
-	}
+//	public void setGoalPos(int row, int col){
+//		this.goalRow = row;
+//		this.goalCol = col;
+//	}
+//	public int getGoalRow(){
+//		return goalRow;
+//	}
+//	public int getGoalCol(){
+//		return goalCol;
+//	}
 	
 	public String toString(){
 		StringBuffer sb = new StringBuffer();
