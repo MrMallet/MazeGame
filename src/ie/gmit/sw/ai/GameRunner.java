@@ -6,7 +6,7 @@ import javax.swing.*;
 import ie.gmit.sw.ai.traversers.*;
 
 public class GameRunner implements KeyListener{
-	private static final int MAZE_DIMENSION = 40;
+	private static final int MAZE_DIMENSION = 70;
 	private Node[][] model;
 	private GameView view;
 	private int currentRow;
@@ -24,9 +24,11 @@ public class GameRunner implements KeyListener{
     	for(int i=0;i<=20;i++){
     		placeEnemies();
     	}
+    	System.out.println("got here at least");
+    	Traversator t = new BeamTraversator(model[goalRow][goalCol], 3);
+    	t.traverse(model, model[0][0], view);
     	
-    	
-    	
+
     	/*
     	 * list:
     	 * called the visited and change color of the node in both views
@@ -120,13 +122,13 @@ public class GameRunner implements KeyListener{
 			model[r][c].setFeature('P');
 			model[currentRow][currentCol].setVisited(true);
 			System.out.println("current row: " + currentRow + " current col: "+currentCol+ " isVisited() returns: " + model[currentRow][currentCol].isVisited());
-			for(int i =0; i<40;i++){
-				for(int j =0; j<40; j++){
-					System.out.print(model[i][j].getFeature());
-					System.out.print(model[i][j].isVisited());
-				}
-				System.out.println();
-			}
+//			for(int i =0; i<40;i++){
+//				for(int j =0; j<40; j++){
+//					System.out.print(model[i][j].getFeature());
+//					System.out.print(model[i][j].isVisited());
+//				}
+//				System.out.println();
+//			}
 			return true;}
 		else if (model[r][c].getFeature()=='B'){
 			//model[currentRow][currentCol].setFeature(' ');
@@ -147,8 +149,11 @@ public class GameRunner implements KeyListener{
 		}else if (model[r][c].getFeature()=='G'){
 			//model[currentRow][currentCol].setFeature(' ');
 			model[r][c].setFeature('G');
-			
 			return false; //Can't move but player interacts with something and changes the state of node
+		}else if (model[r][c].isGoalNode()){
+			//model[currentRow][currentCol].setFeature(' ');
+			model[r][c].setFeature('P');
+			return true; //Can't move but player interacts with something and changes the state of node
 		}
 		else {
 			return false;

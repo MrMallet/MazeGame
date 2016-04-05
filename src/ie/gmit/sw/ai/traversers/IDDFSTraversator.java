@@ -31,6 +31,7 @@ public class IDDFSTraversator implements Traversator{
 		node.setVisited(true);	
 		visitCount++;
 		viewer.repaint();
+		System.out.println("looking for goalNode");
 		
 		if (node.isGoalNode()){
 	        time = System.currentTimeMillis() - time; //Stop the clock

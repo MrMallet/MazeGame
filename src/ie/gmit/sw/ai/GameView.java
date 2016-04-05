@@ -63,19 +63,31 @@ public class GameView extends JPanel implements ActionListener{
         		
         		char ch = 'X';
         		
+        		if (maze[row][col].isVisited() && !maze[row][col].isGoalNode()){
+        			g2.setColor(maze[row][col].getColor());
+        			g2.fillRect(x1, y1, size, size);
+        		}
         		
+       			if (maze[row][col].isGoalNode()){
+       				g2.setColor(Color.GREEN);
+       				g2.fillRect(x1, y1, size, size);
+       			}
         		
         		if (zoomOut){
         			ch = maze[row][col].getFeature();
         			
         			if(maze[row][col].getFeature()== 'E'){
+        				//System.out.println(ch);
         				g2.setColor(Color.BLACK);
         				g2.fillRect(x1, y1, size, size);
+        				continue;
         			}
 
         			if(maze[row][col].getFeature()== 'H'){
+        				//System.out.println(ch);
         				g2.setColor(Color.ORANGE);
         				g2.fillRect(x1, y1, size, size);
+        				continue;
         			}
         			
         			if(maze[row][col].isGoalNode()){
@@ -93,6 +105,7 @@ public class GameView extends JPanel implements ActionListener{
         				//System.out.println("should be painting blue squares");
         				g2.setColor(Color.BLUE);
         				g2.fillRect(x1, y1, size, size);
+        				continue;
         			}
         		}else{
         			ch = maze[currentRow - cellpadding + row][currentCol - cellpadding + col].getFeature();
