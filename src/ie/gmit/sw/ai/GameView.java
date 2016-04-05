@@ -90,6 +90,13 @@ public class GameView extends JPanel implements ActionListener{
         				continue;
         			}
         			
+        			if(maze[row][col].getFeature()== 'W'){
+        				//System.out.println(ch);
+        				g2.setColor(Color.MAGENTA);
+        				g2.fillRect(x1, y1, size, size);
+        				continue;
+        			}
+        			
         			if(maze[row][col].isGoalNode()){
         				g2.setColor(Color.RED);
         				g2.fillRect(x1,y1,size,size);
@@ -103,7 +110,7 @@ public class GameView extends JPanel implements ActionListener{
         			
         			if(maze[row][col].isVisited()){
         				//System.out.println("should be painting blue squares");
-        				g2.setColor(Color.BLUE);
+        				g2.setColor(Color.PINK);
         				g2.fillRect(x1, y1, size, size);
         				continue;
         			}
@@ -161,7 +168,7 @@ public class GameView extends JPanel implements ActionListener{
 		images[1] = ImageIO.read(new java.io.File("resources/sword.png"));		
 		images[2] = ImageIO.read(new java.io.File("resources/help.png"));
 		images[3] = ImageIO.read(new java.io.File("resources/bomb.png"));
-		images[4] = ImageIO.read(new java.io.File("resources/h_bomb.png"));
+		images[4] = ImageIO.read(new java.io.File("resources/banana.png"));
 		images[5] = ImageIO.read(new java.io.File("resources/martinRight.png"));
 		images[6] = ImageIO.read(new java.io.File("resources/martinLeft.png"));
 		images[7] = ImageIO.read(new java.io.File("resources/gargoyle.png"));

@@ -2,6 +2,8 @@ package ie.gmit.sw.ai;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.util.*;
+
 import javax.swing.*;
 import ie.gmit.sw.ai.traversers.*;
 
@@ -9,20 +11,27 @@ public class GameRunner implements KeyListener{
 	private static final int MAZE_DIMENSION = 70;
 	private Node[][] model;
 	private GameView view;
+	private Player p1 ;
+	private ArrayList<Enemy> enemy = new ArrayList<Enemy>();
+	private boolean isGameOver = false;
 	private int currentRow;
 	private int currentCol;
 	private int goalRow;
 	private int goalCol;
 	
+	
 	public GameRunner() throws Exception{
 		Maze m = new Maze(MAZE_DIMENSION, MAZE_DIMENSION);
 		model = m.getMaze();
     	view = new GameView(model);
+    	p1 = new Player();
     	
-    	placePlayer();
+    	
+    	
+    	placePlayer(p1);
     	placeGoalNode();
     	for(int i=0;i<=20;i++){
-    		placeEnemies();
+    		placeEnemies(enemy);
     	}
     	System.out.println("got here at least");
     	Traversator t = new BeamTraversator(model[goalRow][goalCol], 3);
@@ -57,15 +66,15 @@ public class GameRunner implements KeyListener{
     	JFrame f = new JFrame("GMIT - B.Sc. in Computing (Software Development)");
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         f.addKeyListener(this);
-        f.getContentPane().setLayout(new FlowLayout());
-        f.add(view);
+        f.getContentPane().setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+        f.getContentPane().add(view);
         f.setSize(1000,1000);
         f.setLocation(100,100);
         f.pack();
         f.setVisible(true);
 	}
 	
-	private void placeEnemies(){
+	private void placeEnemies(ArrayList<Enemy> enemy){
 		int enemyRow = (int) (MAZE_DIMENSION * Math.random());
     	int enemyCol = (int) (MAZE_DIMENSION * Math.random());
     	model[enemyRow][enemyCol].setFeature('E');
@@ -80,7 +89,7 @@ public class GameRunner implements KeyListener{
     	//updateView();
 	}
 	
-	private void placePlayer(){   	
+	private void placePlayer(Player p1){   	
     	currentRow = (int) (MAZE_DIMENSION * Math.random());
     	currentCol = (int) (MAZE_DIMENSION * Math.random());
     	model[currentRow][currentCol].setFeature('P');
@@ -111,9 +120,6 @@ public class GameRunner implements KeyListener{
     }
     public void keyReleased(KeyEvent e) {} //Ignore
 	public void keyTyped(KeyEvent e) {} //Ignore
-
-    
-	
 	
 	
 	private boolean isValidMove(int r, int c){
@@ -121,8 +127,8 @@ public class GameRunner implements KeyListener{
 			model[currentRow][currentCol].setFeature(' '); 
 			model[r][c].setFeature('P');
 			model[currentRow][currentCol].setVisited(true);
-			System.out.println("current row: " + currentRow + " current col: "+currentCol+ " isVisited() returns: " + model[currentRow][currentCol].isVisited());
-//			for(int i =0; i<40;i++){
+			//System.out.println("current row: " + currentRow + " current col: "+currentCol+ " isVisited() returns: " + model[currentRow][currentCol].isVisited());
+//			for(int i =0; i<40;i++){ //Printout the 2d array
 //				for(int j =0; j<40; j++){
 //					System.out.print(model[i][j].getFeature());
 //					System.out.print(model[i][j].isVisited());
@@ -135,9 +141,10 @@ public class GameRunner implements KeyListener{
 			model[r][c].setFeature('X');
 			return false; //Can't move but player interacts with something and changes the state of node
 		}else if (model[r][c].getFeature()=='H'){
-			//model[currentRow][currentCol].setFeature(' ');
-			model[r][c].setFeature('X');
-			return false; //Can't move but player interacts with something and changes the state of node
+			model[currentRow][currentCol].setFeature(' ');
+			model[r][c].setFeature('P');
+			p1.setPlayerHealth(10);
+			return true; //Can't move but player interacts with something and changes the state of node
 		}else if (model[r][c].getFeature()=='?'){
 			//model[currentRow][currentCol].setFeature(' ');
 			model[r][c].setFeature('X');
@@ -163,7 +170,6 @@ public class GameRunner implements KeyListener{
 	public static void main(String[] args) throws Exception{
 		new GameRunner();
 		
-//		Traversator t = new IDDFSTraversator();
-//    	t.traverse(model, model[0][0], view);
+
 	}
 }
