@@ -11,25 +11,19 @@ FUNCTION_BLOCK Fight
 	
 	FUZZIFY health
 		TERM inadequate := (0, 1) (30, 1) (45, 0);
-		TERM marginal := ( 25, 0 ) ( 50, 1) (75, 1);
+		TERM marginal := ( 25, 0 ) ( 50, 1) (75, 0);
 		TERM adequate := (50, 0) (70, 1) (100, 1);
 	END_FUZZIFY
 	
 	FUZZIFY power
-		TERM weak := (1, 1) (15, 0);
-		TERM average := (1, 1) (15, 0);
-		TERM strong := (6, 0) (20, 1);
+		TERM weak := (1, 1) (10, 0);
+		TERM average := (8, 0) (12, 1)(16, 0);
+		TERM strong := (14, 0) (20, 1);
 	END_FUZZIFY
 	
-	FUZZIFY enemyPower
-		TERM weak := (1, 1) (15, 0);
-		TERM average := (1, 1) (15, 0);
-		TERM strong := (6, 0) (20, 1);
-	END_FUZZIFY
-	
-	DEFUZZIFY risk
-		TERM low := (0, 1) (45, 0);
-		TERM normal := trian 20.0 50.0 80.0;
+	DEFUZZIFY damage
+		TERM low := (0, 1) (40, 0);
+		TERM normal := (30,0)(50,1)(70,0);
 		TERM high := (55, 0) (100, 1);
 		METHOD : COG;
 		DEFAULT := 0;
@@ -39,11 +33,15 @@ FUNCTION_BLOCK Fight
 		 AND : MIN;
 		 ACT : MIN;
 		 ACCU : MAX;
-		 RULE 1 : IF funding IS inadequate THEN risk IS high;
-		 RULE 2 : IF funding IS adequate OR staffing IS small THEN risk IS low;
-		 RULE 3 : IF funding IS marginal AND staffing IS large THEN risk IS normal;
-		 RULE 4 : IF staffing IS large THEN risk IS high;
-		 RULE 5 : IF staffing IS small AND funding IS NOT inadequate THEN risk IS low;
+		 RULE 1 : IF health IS inadequate AND power IS weak THEN damage IS high;
+		 RULE 2 : IF health IS marginal AND power IS weak THEN damage IS high;
+		 RULE 3 : IF health IS inadequate AND power IS average THEN damage IS high;
+		 RULE 4 : IF health IS adequate AND power IS weak THEN damage IS normal;
+		 RULE 5 : IF health IS adequate AND power IS average THEN damage IS normal;
+		 RULE 6 : IF health IS adequate AND power IS strong THEN damage IS low;
+		 RULE 7 : IF health IS marginal AND power IS strong THEN damage IS low;
+		 RULE 8 : IF health IS inadequate AND power IS strong THEN damage IS normal;
+		 RULE 9 : IF health IS marginal AND power IS average THEN damage IS normal;
 	END_RULEBLOCK
 
 END_FUNCTION_BLOCK

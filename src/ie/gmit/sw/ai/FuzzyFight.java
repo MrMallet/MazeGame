@@ -1,23 +1,28 @@
 package ie.gmit.sw.ai;
 
 import net.sourceforge.jFuzzyLogic.*;
+import net.sourceforge.jFuzzyLogic.FunctionBlock;
+import net.sourceforge.jFuzzyLogic.plot.JFuzzyChart;
+import net.sourceforge.jFuzzyLogic.rule.Variable;
 
 public class FuzzyFight {
-	private boolean playerWin = true;
+	private int damage = 0;
+	//private static int health = 90;
+	//private static int power = 19;
 	
-	public boolean fuzzyFight(int health, int playerPower, int enemyPower){
-		
+	public int fuzzyFight(int health, int power){
+	//public static void main(String[] args) throws Exception{
 		String fileName = "fcl/fight.fcl";
         FIS fis = FIS.load(fileName,true);
 		
-		//FunctionBlock functionBlock = fis.getFunctionBlock("fight");
+		FunctionBlock functionBlock = fis.getFunctionBlock("Fight");
 		fis.setVariable("health", health);
-		fis.setVariable("playerPower", playerPower);
-        fis.setVariable("enemyPower", enemyPower);
+		fis.setVariable("power", power);
 		
         fis.evaluate();
-		
-		return playerWin;
+		return damage = (int) (fis.getVariable("damage").getValue());
+        
+		//return playerWin;
 	}
 
 }
