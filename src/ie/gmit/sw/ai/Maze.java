@@ -18,9 +18,9 @@ public class Maze {
 		int featureNumber = (int)((rows * cols) * 0.01);
 		addFeature('W', 'X', featureNumber);
 		addFeature('?', 'X', featureNumber);
-		addFeature('B', 'X', featureNumber);
+		//addFeature('B', 'X', featureNumber);
 		addFeature('H', 'X', featureNumber);
-		//addFeature('E', 'X', featureNumber);
+		//addFeature('E', 'X', featureNumber); enemy being implemented on gamerunner
 		
 	}
 	
@@ -66,16 +66,6 @@ public class Maze {
 		return this.maze;
 	}
 	
-//	public void setGoalPos(int row, int col){
-//		this.goalRow = row;
-//		this.goalCol = col;
-//	}
-//	public int getGoalRow(){
-//		return goalRow;
-//	}
-//	public int getGoalCol(){
-//		return goalCol;
-//	}
 	
 	public String toString(){
 		StringBuffer sb = new StringBuffer();
@@ -86,7 +76,6 @@ public class Maze {
 			}
 			sb.append("\n");
 		}
-		//System.out.println(sb);
 		return sb.toString();
 	}
 }

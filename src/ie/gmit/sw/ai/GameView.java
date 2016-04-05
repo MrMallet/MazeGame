@@ -76,40 +76,36 @@ public class GameView extends JPanel implements ActionListener{
         		if (zoomOut){
         			ch = maze[row][col].getFeature();
         			
-        			if(maze[row][col].getFeature()== 'E'){
-        				//System.out.println(ch);
+        			if(maze[row][col].getFeature()== 'E'){ // enemy
         				g2.setColor(Color.BLACK);
         				g2.fillRect(x1, y1, size, size);
         				continue;
         			}
 
-        			if(maze[row][col].getFeature()== 'H'){
-        				//System.out.println(ch);
+        			if(maze[row][col].getFeature()== 'H'){ //health
         				g2.setColor(Color.ORANGE);
         				g2.fillRect(x1, y1, size, size);
         				continue;
         			}
         			
-        			if(maze[row][col].getFeature()== 'W'){
-        				//System.out.println(ch);
+        			if(maze[row][col].getFeature()== 'W'){ //sword
         				g2.setColor(Color.MAGENTA);
         				g2.fillRect(x1, y1, size, size);
         				continue;
         			}
         			
-        			if(maze[row][col].isGoalNode()){
+        			if(maze[row][col].isGoalNode()){ //girl/ Goal Node
         				g2.setColor(Color.RED);
         				g2.fillRect(x1,y1,size,size);
         				continue;
         			}
-        			if (row == currentRow && col == currentCol){
+        			if (row == currentRow && col == currentCol){ //player
         				g2.setColor(Color.YELLOW);
         				g2.fillRect(x1, y1, size, size);
         				continue;
         			}
         			
         			if(maze[row][col].isVisited()){
-        				//System.out.println("should be painting blue squares");
         				g2.setColor(Color.PINK);
         				g2.fillRect(x1, y1, size, size);
         				continue;
@@ -125,7 +121,7 @@ public class GameView extends JPanel implements ActionListener{
         			imageIndex = 1;
         		}else if (ch == '?'){
         			imageIndex = 2;
-        		}else if (ch == 'B'){
+        		}else if (ch == 'B'){ // left out of the maze 
         			imageIndex = 3;
         		}else if (ch == 'H'){
         			imageIndex = 4;

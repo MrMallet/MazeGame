@@ -6,11 +6,11 @@ import net.sourceforge.jFuzzyLogic.plot.JFuzzyChart;
 import net.sourceforge.jFuzzyLogic.rule.Variable;
 
 public class FuzzyFight {
-	private int damage = 0;
+	private float damage = 0;
 	//private static int health = 90;
 	//private static int power = 19;
 	
-	public int fuzzyFight(int health, int power){
+	public float fuzzyFight(int health, int power){
 	//public static void main(String[] args) throws Exception{
 		String fileName = "fcl/fight.fcl";
         FIS fis = FIS.load(fileName,true);
@@ -20,7 +20,7 @@ public class FuzzyFight {
 		fis.setVariable("power", power);
 		
         fis.evaluate();
-		return damage = (int) (fis.getVariable("damage").getValue());
+		return damage = (float) (fis.getVariable("damage").getValue());
         
 		//return playerWin;
 	}
