@@ -6,7 +6,7 @@ FUNCTION_BLOCK Fight
 	END_VAR
 	
 	VAR_OUTPUT
-		result : REAL;
+		damage : REAL;
 	END_VAR
 	
 	FUZZIFY health
