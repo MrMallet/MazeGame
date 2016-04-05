@@ -1,7 +1,7 @@
 ##Maze Game
 ##James Moloney 
 ##G00304978
-
+##[https://github.com/MrMallet/MazeGame](https://github.com/MrMallet/MazeGame)
 ### Artificial Intelligence
 ### 4th Year BSC Software Development
 ### John Healy ~ Lecturer
@@ -36,4 +36,4 @@ This gameproject has been made for my Artifical Intelligence module in GMIT. The
 The game uses jFuzzyLogic.jar and jFuzzyLogic_core.jar libraries. The user will run the GameRunner.java to play to load and play. 
 The game game is played using the directional buttons on your keyboard and the 'z' key to zoom in and out. 
 As the user makes his way around the game he'll see swords and fruit, both essential to beating the gargoyles. AS he collects both, his character will get stronger and more easily able to defeat the enemies. However the weaker he is the more damage the gargoyles will inflict. Unfortunately there are no working algorithms attached to the enemies, the clue feature or the building of the maze itself. 
-In the Zoom out function the user can track their movements and plan ahead. However the gargoyles will remain hidden in this view so be careful!!  
+In the Zoom out function the user can track their movements and plan ahead, the player is the yellow block and the girl the red. However the gargoyles will remain hidden in this view so be careful!!  

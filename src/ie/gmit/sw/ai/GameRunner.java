@@ -31,7 +31,7 @@ public class GameRunner implements KeyListener{
     	
     	placePlayer(p1);
     	placeGoalNode();
-    	for(int i=0;i<=50;i++){
+    	for(int i=0;i<=200;i++){
     		placeEnemies(enemy);
     	}
     	
